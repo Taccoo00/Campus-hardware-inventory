@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>{% block title %}Lab Inventory{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  {% if session.get('username') %}
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('dashboard') }}" aria-label="Dashboard">
+      <span class="brand-mark">CH</span>
+      <span><strong>Campus Hardware</strong><small>Engineering Lab Inventory</small></span>
+    </a>
+    <nav class="top-actions" aria-label="Account navigation">
+      <a class="text-link" href="{{ url_for('profile') }}">{{ session.username }}</a>
+      <span class="role-pill">{{ session.role }}</span>
+      <form action="{{ url_for('logout') }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="button ghost small" type="submit">Log out</button>
+      </form>
+    </nav>
+  </header>
+  {% endif %}
+
+  <div class="flash-stack" aria-live="polite">
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="flash {{ category }}">{{ message }}<button type="button" aria-label="Dismiss">&times;</button></div>
+    {% endfor %}
+  </div>
+
+  {% block content %}{% endblock %}
+  <footer>Campus Hardware Inventory System · {{ current_year }}</footer>
+</body>
+</html>

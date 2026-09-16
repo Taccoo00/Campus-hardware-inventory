@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Sign in · Campus Hardware{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+{% block content %}
+<main class="auth-shell">
+  <section class="auth-visual">
+    <div class="visual-content">
+      <span class="eyebrow">Engineering Laboratory</span>
+      <h1>Every component.<br>Properly tracked.</h1>
+      <p>Manage laboratory equipment, borrowing approvals, returns, and audit history from one secure workspace.</p>
+      <div class="visual-grid" aria-hidden="true">
+        <span>01</span><span>CATALOG</span><span>02</span><span>BORROW</span><span>03</span><span>RETURN</span>
+      </div>
+    </div>
+  </section>
+  <section class="auth-panel">
+    <div class="auth-card">
+      <a class="brand auth-brand" href="{{ url_for('login') }}"><span class="brand-mark">CH</span><span><strong>Campus Hardware</strong><small>Inventory portal</small></span></a>
+      <div>
+        <span class="eyebrow dark">Welcome back</span>
+        <h2>Sign in to your account</h2>
+        <p class="muted">Use your username or registered email address.</p>
+      </div>
+      <form method="post" class="form-stack">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>Username or email<input name="identifier" autocomplete="username" required autofocus></label>
+        <label>Password
+          <span class="password-field"><input id="login-password" type="password" name="password" autocomplete="current-password" required><button type="button" class="show-password" data-target="login-password">Show</button></span>
+        </label>
+        <button class="button primary wide" type="submit">Sign in</button>
+      </form>
+      <div class="auth-links"><a href="{{ url_for('register') }}">Create account</a><a href="{{ url_for('reset_request') }}">Reset or unlock</a></div>
+    </div>
+  </section>
+</main>
+{% endblock %}
