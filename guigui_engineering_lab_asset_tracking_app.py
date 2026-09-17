@@ -1822,7 +1822,7 @@ class AssetTrackingService:
             cursor.execute("""
                 SELECT item_id, item_name, category, quantity, status
                 FROM hardware
-                ORDER BY item_name COLLATE NOCASE, item_id
+                ORDER BY LOWER(item_name), item_id
             """)
             items = cursor.fetchall()
             results = []
